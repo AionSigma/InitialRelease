@@ -1,3 +1,3 @@
-rootProject.name = 'client_app'
+rootProject.name = 'aionsigma_app'
 
 include ':app'

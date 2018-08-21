@@ -1,4 +1,4 @@
-package com.client_app;
+package com.aionsigma_app;
 
 import android.app.Application;
 

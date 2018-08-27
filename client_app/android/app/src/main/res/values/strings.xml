@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Aion Sigma App</string>
+    <string name="timer_Interval_minutes">10</string>
 </resources>

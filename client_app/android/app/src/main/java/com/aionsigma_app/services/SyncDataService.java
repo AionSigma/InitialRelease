@@ -99,18 +99,7 @@ public class SyncDataService extends Service {
         }
         public void run()
         {
-            
-
-            //to do ....
-            //Toast.makeText(getApplicationContext(), "timer interval time", Toast.LENGTH_LONG).show();
-            // try{
-            //     PopulateDbAsync task = new PopulateDbAsync(context );
-            //     task.execute();
-            // }catch (Exception ex){
-            //     error = ex.getMessage();
-            // }
-
-            
+            /*
             try{
                 AppDatabase db = AppDatabase.getAppDatabase(context);
                 UserInfo userInfo = new UserInfo("test","123456789","test");
@@ -123,7 +112,7 @@ public class SyncDataService extends Service {
                 error = ex.getMessage();
             }
             toastHandler.sendEmptyMessage(0);
-           
+           */
             //stopSelf(taskId);
         }
     }

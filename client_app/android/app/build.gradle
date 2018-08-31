@@ -99,7 +99,7 @@ android {
 
     defaultConfig {
         applicationId "com.aionsigma_app"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -154,6 +154,7 @@ dependencies {
     //noinspection GradleCompatible
     compile "com.android.support:appcompat-v7:27.1.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
+    compile project(':react-native-navigation')
 
     def room_version = "1.1.1"
 
@@ -168,6 +169,7 @@ dependencies {
 
     // Test helpers
     testImplementation "android.arch.persistence.room:testing:$room_version"
+
 
 }
 

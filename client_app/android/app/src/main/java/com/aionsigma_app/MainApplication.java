@@ -14,37 +14,37 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+import com.reactnativenavigation.NavigationApplication;
 
-public class MainApplication extends Application implements ReactApplication {
-
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
-      );
-    }
-
-    @Override
-    protected String getJSMainModuleName() {
-      return "index";
-    }
-  };
+public class MainApplication extends NavigationApplication {
 
   @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
+  public boolean isDebug() {
+    // Make sure you are using BuildConfig from your own application
+    return BuildConfig.DEBUG;
+  }
+
+  protected List<ReactPackage> getPackages() {
+    // Add additional packages you require here
+    // No need to add RnnPackage and MainReactPackage
+    return Arrays.<ReactPackage>asList(
+            // eg. new VectorIconsPackage()
+    );
+  }
+
+  @Override
+  public List<ReactPackage> createAdditionalReactPackages() {
+    return getPackages();
+  }
+
+  @Override
+  public String getJSMainModuleName() {
+    return "index";
   }
 
   @Override
   public void onCreate() {
     super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
     try {
       if( !isServiceRunning()) {
         Intent intent = new Intent(this, SyncDataService.class);
@@ -57,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
 
   }
 
+
   private boolean isServiceRunning() {
     ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
     for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
@@ -67,3 +68,56 @@ public class MainApplication extends Application implements ReactApplication {
     return false;
   }
 }
+
+// public class MainApplication extends Application implements NavigationApplication {
+
+//   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+//     @Override
+//     public boolean getUseDeveloperSupport() {
+//       return BuildConfig.DEBUG;
+//     }
+
+//     @Override
+//     protected List<ReactPackage> getPackages() {
+//       return Arrays.<ReactPackage>asList(
+//           new MainReactPackage()
+//       );
+//     }
+
+//     @Override
+//     protected String getJSMainModuleName() {
+//       return "index";
+//     }
+//   };
+
+//   @Override
+//   public ReactNativeHost getReactNativeHost() {
+//     return mReactNativeHost;
+//   }
+
+//   @Override
+//   public void onCreate() {
+//     super.onCreate();
+//     SoLoader.init(this, /* native exopackage */ false);
+//     try {
+//       if( !isServiceRunning()) {
+//         Intent intent = new Intent(this, SyncDataService.class);
+//         startService(intent);
+//       }
+//     }
+//     catch (Exception ex){
+//       Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+//     }
+
+//   }
+
+//   private boolean isServiceRunning() {
+//     ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+//     for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+//       if("com.aionsigma_app.services.SyncDataService".equals(service.service.getClassName())) {
+//         return true;
+//       }
+//     }
+//     return false;
+//   }
+// }

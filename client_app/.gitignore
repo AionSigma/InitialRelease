@@ -33,8 +33,12 @@ local.properties
 # node.js
 #
 node_modules/
+!react-native-navigation/android/app/build.gradle
 npm-debug.log
 yarn-error.log
+
+#except a few files
+
 
 # BUCK
 buck-out/

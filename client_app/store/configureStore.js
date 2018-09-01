@@ -1,8 +1,10 @@
 import { createStore, combineReducers, compose } from 'redux';
-
+import user from './reducers/friends';
+import friends from './reducers/friends';
 
 const rootReducer = combineReducers({
-
+    user,
+    friends
 });
 
 let composeEnhancers = compose;

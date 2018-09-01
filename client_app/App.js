@@ -8,29 +8,39 @@
 
 import React, {Component} from 'react';
 import { Navigation } from "react-native-navigation";
+import { Provider } from "react-redux";
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
+import configureStore from './store/configureStore';
 import UserProfile from './screens/UserProfile';
 import LoanRequest from './screens/LoanRequest';
 import GroupProfiles from './screens/GroupProfiles';
 import Friends from './screens/Friends';
 import DepositToACircle from './screens/DepositToACircle';
 import CurrentCircle from './screens/CurrentCircle';
+import SideDrawer from './screens/main/SideDrawer';
+import StartMainTabs from './screens/main/StartMainTabs';
 
-Navigation.registerComponent('aionSigma.UserProfile', () => UserProfile);
-Navigation.registerComponent('aionSigma.LoanRequest', () => LoanRequest);
-Navigation.registerComponent('aionSigma.GroupProfiles', () => GroupProfiles);
-Navigation.registerComponent('aionSigma.Friends', () => Friends);
-Navigation.registerComponent('aionSigma.DepositToACircle', () => DepositToACircle);
-Navigation.registerComponent('aionSigma.CurrentCircle', () => CurrentCircle);
+
+const store = configureStore();
+
+Navigation.registerComponent('aionSigma.SideDrawer', () => SideDrawer, store, Provider);
+Navigation.registerComponent('aionSigma.StartMainTabs', () => StartMainTabs, store, Provider);
+
+Navigation.registerComponent('aionSigma.UserProfile', () => UserProfile, store, Provider);
+Navigation.registerComponent('aionSigma.LoanRequest', () => LoanRequest, store, Provider);
+Navigation.registerComponent('aionSigma.GroupProfiles', () => GroupProfiles, store, Provider);
+Navigation.registerComponent('aionSigma.Friends', () => Friends, store, Provider);
+Navigation.registerComponent('aionSigma.DepositToACircle', () => DepositToACircle, store, Provider);
+Navigation.registerComponent('aionSigma.CurrentCircle', () => CurrentCircle, store, Provider);
 
 // Start a App
-Navigation.startSingleScreenApp({
-  screen: {
-    screen: "aionSigma.UserProfile",
-    title: "UserProfile"
-  }
-});
+StartMainTabs();
+// Navigation.startSingleScreenApp({
+//   screen: {
+//     screen: "aionSigma.StartMainTabs"
+//   }
+// });
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
 //   android:

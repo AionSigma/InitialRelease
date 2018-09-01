@@ -9,14 +9,25 @@
 import React, {Component} from 'react';
 import { Navigation } from "react-native-navigation";
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import UserProfile from './screens/UserProfile';
 
-Navigation.registerComponent('aionSigma.FirstScreen', () => UserProfile);
+import UserProfile from './screens/UserProfile';
+import LoanRequest from './screens/LoanRequest';
+import GroupProfiles from './screens/GroupProfiles';
+import Friends from './screens/Friends';
+import DepositToACircle from './screens/DepositToACircle';
+import CurrentCircle from './screens/CurrentCircle';
+
+Navigation.registerComponent('aionSigma.UserProfile', () => UserProfile);
+Navigation.registerComponent('aionSigma.LoanRequest', () => LoanRequest);
+Navigation.registerComponent('aionSigma.GroupProfiles', () => GroupProfiles);
+Navigation.registerComponent('aionSigma.Friends', () => Friends);
+Navigation.registerComponent('aionSigma.DepositToACircle', () => DepositToACircle);
+Navigation.registerComponent('aionSigma.CurrentCircle', () => CurrentCircle);
 
 // Start a App
 Navigation.startSingleScreenApp({
   screen: {
-    screen: "aionSigma.FirstScreen",
+    screen: "aionSigma.UserProfile",
     title: "UserProfile"
   }
 });

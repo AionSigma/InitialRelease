@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
+import ScreenDrawerBase from './main/ScreenDrawerBase';
 
-class Friends extends Component {
+class Friends extends ScreenDrawerBase {
     render() {
         return (
             <View>

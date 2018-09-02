@@ -11,9 +11,9 @@ const leftButtons =(sources)=> [
 
 const StartTabs = () => {
     Promise.all([
-        Icon.getImageSource("md-person", 30),
-        Icon.getImageSource("md-people", 30),
-        Icon.getImageSource("md-menu", 30)
+        Icon.getImageSource("md-person", 20),
+        Icon.getImageSource("md-people", 20),
+        Icon.getImageSource("md-menu", 20)
     ]).then(sources => {
         
         Navigation.startTabBasedApp({

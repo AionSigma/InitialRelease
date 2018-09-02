@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 class ScreenDrawerBase extends Component {
     constructor(props) {
@@ -17,5 +17,10 @@ class ScreenDrawerBase extends Component {
         }
     }
 }
-
+ScreenDrawerBase.propTypes = {
+    navigator: PropTypes.shape({
+        setOnNavigatorEvent: PropTypes.func.isRequired,
+        toggleDrawer: PropTypes.func.isRequired,
+    }).isRequired,
+};
 export default ScreenDrawerBase;

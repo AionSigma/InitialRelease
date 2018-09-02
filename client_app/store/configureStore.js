@@ -1,5 +1,5 @@
 import { createStore, combineReducers, compose } from 'redux';
-import user from './reducers/friends';
+import user from './reducers/user';
 import friends from './reducers/friends';
 
 const rootReducer = combineReducers({

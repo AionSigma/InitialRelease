@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
   //   paddingTop: 30,
   //   backgroundColor: '#ecf0f1',
   // },
-  image: {
-    height: 80,
-    width: 80,
-    borderRadius: 40,
-  }
+  // image: {
+  //   height: 80,
+  //   width: 80,
+  //   borderRadius: 40,
+  // }
 });
 
 class ImageCircle extends Component {
@@ -23,10 +23,12 @@ class ImageCircle extends Component {
         let {image,size} = this.props;
         image = image || images.avatar_playholder;
         size = size || 40;
+        const borderRadius = size/2;
         return (
 
         <Image 
-          style={styles.image}
+          //style={styles.image}
+          style={{width:size, height:size, borderRadius}}
           resizeMode={"cover"}
           source={image}
         />
@@ -36,7 +38,7 @@ class ImageCircle extends Component {
 }
 
 ImageCircle.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.any,
   size: PropTypes.number,
 };
 

@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 22,
+    backgroundColor:'#fff',
+    flex: 1
+  }
+});
+
 class SideDrawer extends Component {
   render() {
     return (
@@ -16,12 +24,6 @@ class SideDrawer extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 22,
-    backgroundColor: "white",
-    flex: 1
-  }
-});
+
 
 export default SideDrawer;

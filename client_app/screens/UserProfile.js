@@ -10,13 +10,10 @@ function mapStateToProps(state) {
     };
 }
 class UserProfile extends ScreenDrawerBase {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <View>
-                <ImageCircle></ImageCircle>
+                <ImageCircle size={60} />
                 <Text>UserProfile Screen</Text>
             </View>
         );

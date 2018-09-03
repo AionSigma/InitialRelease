@@ -44,7 +44,7 @@ function mapStateToProps(state) {
 }
 class UserProfile extends ScreenDrawerBase {
 
-    onPress=()=>{
+    handleOnPress=()=>{
         return ;
     }
     render() {
@@ -64,7 +64,7 @@ class UserProfile extends ScreenDrawerBase {
                 </View>
                 <View style={{flex:1, marginTop:10}}>
                     <View style={{marginTop:-30, marginLeft:30}}>
-                        <TouchableOpacity onPress={this.onPress} style={{width:40, height:40,borderRadius:20
+                        <TouchableOpacity onPress={this.handleOnPress} style={{width:40, height:40,borderRadius:20
                             ,alignItems:'center', justifyContent:'center'
                             ,backgroundColor:'#00e1ff'
                             ,shadowColor: 'black'
@@ -106,16 +106,15 @@ class UserProfile extends ScreenDrawerBase {
                         <View style={{flexDirection:'row', marginTop:15, marginBottom:5}}>
                             <View style={{flex:1}}/>
                             <View style={{flex:1, alignItems:'center'}}>
-                                <Button color="#00ff33" title="Review" onPress={this.onPress}/>
+                                <Button color="#00ff33" title="Review" onPress={this.handleOnPress}/>
                             </View>
                             <View style={{flex:1, alignItems:'center'}}>
-                                <Button color="red" title="Decline" onPress={this.onPress}/>
+                                <Button color="red" title="Decline" onPress={this.handleOnPress}/>
                             </View>
                             <View style={{flex:1}}/>
                         </View>
                     </ScrollView>
-                </View>
-                
+                </View> 
             </View>
         );
     }

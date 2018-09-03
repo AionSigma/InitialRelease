@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const leftButtons =(sources)=> [
     {
-        icon: sources[2],
+        icon: sources[0],
         title: "Menu",
         id: "sideDrawerToggle"
     }
@@ -11,32 +11,89 @@ const leftButtons =(sources)=> [
 
 const StartTabs = () => {
     Promise.all([
+        Icon.getImageSource("md-menu", 20),
+        Icon.getImageSource("md-home", 20),
+        Icon.getImageSource("md-stats", 20),
+        Icon.getImageSource("md-star", 20),
         Icon.getImageSource("md-person", 20),
-        Icon.getImageSource("md-people", 20),
-        Icon.getImageSource("md-menu", 20)
+        Icon.getImageSource("md-more", 20)
+
     ]).then(sources => {
-        
         Navigation.startTabBasedApp({
             tabs: [
                 {
                     screen: "aionSigma.UserProfile",
-                    label: "User Profile",
+                    //label: "User Profile",
                     title: "User Profile",
-                    icon: sources[0],
+                    icon: sources[1],
                     navigatorButtons: {
                         leftButtons:leftButtons(sources)
                     }
                 },
                 {
                     screen: "aionSigma.Friends",
-                    label: "Friends",
+                    //label: "Friends",
                     title: "Friends",
-                    icon: sources[1],
+                    icon: sources[2],
+                    navigatorButtons: {
+                        leftButtons:leftButtons(sources)
+                    }
+                },
+                {
+                    screen: "aionSigma.UserProfile",
+                    //label: "User Profile",
+                    title: "User Profile",
+                    icon: sources[3],
+                    navigatorButtons: {
+                        leftButtons:leftButtons(sources)
+                    }
+                },
+                {
+                    screen: "aionSigma.UserProfile",
+                    //label: "User Profile",
+                    title: "User Profile",
+                    icon: sources[4],
+                    navigatorButtons: {
+                        leftButtons:leftButtons(sources)
+                    }
+                },
+                {
+                    screen: "aionSigma.Friends",
+                    //label: "Friends",
+                    title: "Friends",
+                    icon: sources[5],
                     navigatorButtons: {
                         leftButtons:leftButtons(sources)
                     }
                 }
             ],
+            tabsStyle: { 
+                
+            },
+            appStyle: {
+                navBarTextColor: '#fff', // change the text color of the title (remembered across pushes)
+                navBarTextFontSize: 16, // change the font size of the title
+                navBarBackgroundColor: '#527EEC', // change the background color of the nav bar (remembered across pushes)
+                navBarComponentAlignment: 'center', // center/fill
+                navBarButtonColor: '#fff',
+                drawUnderNavBar: true,
+                navBarTitleTextCentered: true, // default: false. centers the title.
+                navBarSubTitleTextCentered: true, // (Android - default: false, iOS - default: depending on navBarTitleTextCentered). centers the subTitle.
+                //navBarSubtitleFontSize: 12, // subtitle font size
+                navBarHeight: 50,
+                topTabsHeight: 50,
+                tabBarSelectedButtonColor: '#85878C', // change the color of the selected tab icon and text (only selected)
+                // tabBarBackgroundColor: '#265BDE', // change the background color of the tab bar
+                // tabBarTranslucent: false, // change the translucent of the tab bar to false
+                 tabFontSize: 8,
+                 selectedTabFontSize: 10,
+                //tabBarTextFontFamily: 'Avenir-Medium', //change the tab font family
+                // tabBarLabelColor: '#ffb700', // iOS only. change the color of tab text
+                // tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
+                forceTitlesDisplay: false, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
+                tabBarHideShadow: false, // Remove default tab bar top shadow (hairline)
+                
+              },
             drawer: {
                 left: {
                     screen: "aionSigma.SideDrawer"

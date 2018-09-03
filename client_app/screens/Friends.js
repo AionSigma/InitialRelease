@@ -102,7 +102,8 @@ class Friends extends ScreenDrawerBase {
             persons:arrPersons
         })
     }
-    showPersons=(persons)=>{
+    showPersons=()=>{
+        const { persons } = this.state;
         return persons.map((person, index)=>{
             const btnStype = person.approved? styles.checkButtonActive:styles.checkButtonInactive;
             return(
@@ -122,7 +123,7 @@ class Friends extends ScreenDrawerBase {
         return (
             <ScrollView>
                 <View style={{justifyContent:'center', backgroundColor:'#e6f5ff',paddingBottom:15}}>
-                    {this.showPersons(persons)}
+                    {this.showPersons()}
                 </View>
             </ScrollView>
         );

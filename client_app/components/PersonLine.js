@@ -12,9 +12,7 @@ const styles = StyleSheet.create({
         marginLeft:15,
         padding:15,
         backgroundColor:'#fff',
-        borderRadius:10,
-        
-        
+        borderRadius:5,
     },
     containerLeft:{
         flex:1,
@@ -39,7 +37,7 @@ class PersonLine extends Component {
                         <ImageCircle size={60} />
                     </View>
                     <View style={{margin:10}}>
-                        <Text>{person.name}</Text>
+                        <Text style={{fontWeight:'bold'}}>{person.name}</Text>
                         <Text>{person.phone}</Text>
                     </View>
                 </View>

@@ -40,9 +40,9 @@ const StartTabs = () => {
                     }
                 },
                 {
-                    screen: "aionSigma.UserProfile",
-                    //label: "User Profile",
-                    title: "User Profile",
+                    screen: "aionSigma.CurrentCircle",
+                    //label: "Current Circle",
+                    title: "Current Circle",
                     icon: sources[3],
                     navigatorButtons: {
                         leftButtons:leftButtons(sources)

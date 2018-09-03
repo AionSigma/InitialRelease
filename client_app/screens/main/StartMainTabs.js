@@ -68,7 +68,7 @@ const StartTabs = () => {
                 }
             ],
             tabsStyle: { 
-                
+                initialTabIndex: 1,
             },
             appStyle: {
                 navBarTextColor: '#fff', // change the text color of the title (remembered across pushes)
@@ -82,7 +82,7 @@ const StartTabs = () => {
                 //navBarSubtitleFontSize: 12, // subtitle font size
                 navBarHeight: 50,
                 topTabsHeight: 50,
-                tabBarSelectedButtonColor: '#85878C', // change the color of the selected tab icon and text (only selected)
+                tabBarSelectedButtonColor: '#1aa3ff', // change the color of the selected tab icon and text (only selected)
                 // tabBarBackgroundColor: '#265BDE', // change the background color of the tab bar
                 // tabBarTranslucent: false, // change the translucent of the tab bar to false
                  tabFontSize: 8,

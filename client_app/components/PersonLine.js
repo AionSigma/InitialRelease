@@ -15,15 +15,15 @@ const styles = StyleSheet.create({
         borderRadius:5,
     },
     containerLeft:{
-        flex:1,
+        flex:3,
         flexDirection:'row',
     },
     containerRight:{
-        flex:1,
+        flex:2,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'flex-end',
-        margin:10
+        //margin:10
     }
 })
 

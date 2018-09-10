@@ -1,4 +1,4 @@
-package com.aionsigma.aionsigma
+package com.aionsigma.android
 
 import org.junit.Test
 

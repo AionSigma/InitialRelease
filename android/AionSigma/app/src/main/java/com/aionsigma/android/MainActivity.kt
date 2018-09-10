@@ -1,4 +1,4 @@
-package com.aionsigma.aionsigma
+package com.aionsigma.android
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

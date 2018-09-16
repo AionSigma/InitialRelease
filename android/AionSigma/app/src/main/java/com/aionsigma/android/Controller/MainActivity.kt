@@ -12,11 +12,28 @@ import android.widget.Toast
 import com.aionsigma.android.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import android.app.ActivityManager
+import android.content.Context
+import com.aionsigma.android.Services.SyncDataService
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        try {
+            if (!isServiceRunning()) {
+                val intent = Intent(this, SyncDataService::class.java)
+                startService(intent)
+            }
+        } catch (ex: Exception) {
+            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
+        }
+
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
@@ -57,5 +74,15 @@ class MainActivity : AppCompatActivity() {
     fun btnLogoutOnClicked(view: View){
         val loginIntent = Intent(this,LoginActivity::class.java)
         startActivity(loginIntent)
+    }
+
+    private fun isServiceRunning(): Boolean {
+        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("com.aionsigma.android.Services.SyncDataService" == service.service.className) {
+                return true
+            }
+        }
+        return false
     }
 }

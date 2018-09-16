@@ -75,20 +75,20 @@ class SyncDataService : Service() {
 
     private inner class mainTask(internal var taskId: Int) : TimerTask() {
         override fun run() {
-            /*
-            try{
-                AppDatabase db = AppDatabase.getAppDatabase(context);
-                UserInfo userInfo = new UserInfo("test","123456789","test");
-                UserInfoDao myDao = db.userInfoDao();
-                myDao.insert(userInfo);
-                List<UserInfo> userInfoList = myDao.getAll();
-                int index = userInfoList.size()-1;
-                message = userInfoList.get(index).getUserInfoId() + "---" + userInfoList.get(index).getData();
-            }catch (Exception ex){
-                error = ex.getMessage();
-            }
-            toastHandler.sendEmptyMessage(0);
-           */
+
+//            try{
+//                val db = AppDatabase.getAppDatabase(context);
+//                val userInfo = UserInfo("test","123456789","test")
+//                val myDao = db.userInfoDao()
+//                myDao.insert(userInfo)
+//                val userInfoList = myDao.getAll()
+//                val index = userInfoList.count() -1
+//                message = userInfoList[index].userInfoId + "---" + userInfoList[index].data
+//            }catch (ex : java.lang.Exception){
+//                error = ex.message!!
+//            }
+//            toastHandler.sendEmptyMessage(0)
+
             //stopSelf(taskId);
         }
     }

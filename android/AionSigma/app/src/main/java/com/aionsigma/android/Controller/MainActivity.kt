@@ -16,25 +16,36 @@ import android.app.ActivityManager
 import android.content.AbstractThreadedSyncAdapter
 import android.content.Context
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.aionsigma.android.Adapters.LeftMenuAdapter
 import com.aionsigma.android.Services.AppDataService
 import com.aionsigma.android.Services.SyncDataService
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: LeftMenuAdapter
-//    lateinit var menu_left_list : ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         adapter = LeftMenuAdapter(this, AppDataService.menuLeftItems)
-//        menu_left_list = nav_view.findViewById(R.id.menu_left_list) as ListView
         menu_left_list.adapter = adapter
 
+        val layoutManager = LinearLayoutManager(this)
+        val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.recyclerview_divider)!!)
+
+        menu_left_list.layoutManager = layoutManager
+        menu_left_list.setHasFixedSize(true)
+        menu_left_list.addItemDecoration(itemDecorator)
 
         try {
             if (!isServiceRunning()) {

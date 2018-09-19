@@ -13,14 +13,28 @@ import com.aionsigma.android.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.app.ActivityManager
+import android.content.AbstractThreadedSyncAdapter
 import android.content.Context
 import android.support.design.widget.NavigationView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import com.aionsigma.android.Adapters.LeftMenuAdapter
+import com.aionsigma.android.Services.AppDataService
 import com.aionsigma.android.Services.SyncDataService
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
+    lateinit var adapter: LeftMenuAdapter
+//    lateinit var menu_left_list : ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+
+        adapter = LeftMenuAdapter(this, AppDataService.menuLeftItems)
+//        menu_left_list = nav_view.findViewById(R.id.menu_left_list) as ListView
+        menu_left_list.adapter = adapter
+
 
         try {
             if (!isServiceRunning()) {
@@ -32,8 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
 
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+
 
 //        val ab = getSupportActionBar()
 //        ab?.setTitle("dsfsdf")
@@ -68,36 +81,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             else -> return super.onOptionsItemSelected(item)
         }
     }
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
 
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
-
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
-    }
-    fun btnLogoutOnClicked(view: View){
-        val loginIntent = Intent(this,LoginActivity::class.java)
-        startActivity(loginIntent)
-    }
 
     private fun isServiceRunning(): Boolean {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager

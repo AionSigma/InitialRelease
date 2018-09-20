@@ -74,8 +74,8 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceType")
     private fun initial(): Unit{
-        fragmentManager = getSupportFragmentManager()
-        actionBar = getSupportActionBar()
+        fragmentManager = supportFragmentManager
+        actionBar = supportActionBar
 
 
         //Create First Fragment
@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity() {
         val myProfile = MyProfileFragment()
         fragmentTransaction?.add(R.id.frameLayout,myProfile)
         fragmentTransaction?.commit()
-
+        actionBar?.title = AppDataService.menuLeftItems[0].title
 
         //Left menu init
         adapter = LeftMenuAdapter(this, AppDataService.menuLeftItems){ menuItem ->
 
-            actionBar?.setTitle(menuItem.title)
+            actionBar?.title = menuItem.title
 
             menuItemSelectedHandler(menuItem)
         }
@@ -142,6 +142,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun isServiceRunning(): Boolean {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        @Suppress("DEPRECATION")
         for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
             if ("com.aionsigma.android.Services.SyncDataService" == service.service.className) {
                 return true

@@ -30,29 +30,38 @@
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
-        <include layout="@layout/content_main" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayout"
+            >
+        </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        >
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <include layout="@layout/nav_header_main" android:id="@+id/nav_drawer_header_include"
-                android:layout_height="180dp"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/nav_drawer_header_include"
+                layout="@layout/nav_header_main"
                 android:layout_width="match_parent"
-                />
+                android:layout_height="180dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/menu_left_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/nav_drawer_header_include"></android.support.v7.widget.RecyclerView>
+                android:layout_below="@id/nav_drawer_header_include"
+                 />
         </RelativeLayout>
     </android.support.design.widget.NavigationView>
 

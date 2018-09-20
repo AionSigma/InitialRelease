@@ -1,5 +1,6 @@
 package com.aionsigma.android.Controller
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
@@ -16,6 +17,7 @@ import android.app.ActivityManager
 import android.content.AbstractThreadedSyncAdapter
 import android.content.Context
 import android.support.design.widget.NavigationView
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -23,49 +25,25 @@ import com.aionsigma.android.Adapters.LeftMenuAdapter
 import com.aionsigma.android.Services.AppDataService
 import com.aionsigma.android.Services.SyncDataService
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.ActionBar
 import android.support.v7.widget.DividerItemDecoration
-
+import com.aionsigma.android.Constants.ConstMenu
+import com.aionsigma.android.Controller.MainFragments.MyCircleFragment
+import com.aionsigma.android.Controller.MainFragments.MyProfileFragment
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: LeftMenuAdapter
+    var actionBar: ActionBar? = null
+    var fragmentManager : FragmentManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        adapter = LeftMenuAdapter(this, AppDataService.menuLeftItems)
-        menu_left_list.adapter = adapter
-
-        val layoutManager = LinearLayoutManager(this)
-        val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.recyclerview_divider)!!)
-
-        menu_left_list.layoutManager = layoutManager
-        menu_left_list.setHasFixedSize(true)
-        menu_left_list.addItemDecoration(itemDecorator)
-
-        try {
-            if (!isServiceRunning()) {
-                val intent = Intent(this, SyncDataService::class.java)
-                startService(intent)
-            }
-        } catch (ex: Exception) {
-            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
-        }
-
-
-
-
-//        val ab = getSupportActionBar()
-//        ab?.setTitle("dsfsdf")
-
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+        initial()
 
     }
 
@@ -93,6 +71,74 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    @SuppressLint("ResourceType")
+    private fun initial(): Unit{
+        fragmentManager = getSupportFragmentManager()
+        actionBar = getSupportActionBar()
+
+
+        //Create First Fragment
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        val myProfile = MyProfileFragment()
+        fragmentTransaction?.add(R.id.frameLayout,myProfile)
+        fragmentTransaction?.commit()
+
+
+        //Left menu init
+        adapter = LeftMenuAdapter(this, AppDataService.menuLeftItems){ menuItem ->
+
+            actionBar?.setTitle(menuItem.title)
+
+            menuItemSelectedHandler(menuItem)
+        }
+        menu_left_list.adapter = adapter
+
+        val layoutManager = LinearLayoutManager(this)
+        val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.recyclerview_divider)!!)
+
+        menu_left_list.layoutManager = layoutManager
+        menu_left_list.setHasFixedSize(true)
+        menu_left_list.addItemDecoration(itemDecorator)
+
+        //Services
+        try {
+            if (!isServiceRunning()) {
+                val intent = Intent(this, SyncDataService::class.java)
+                startService(intent)
+            }
+        } catch (ex: Exception) {
+            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
+        }
+
+
+
+
+        //Drawer init
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+    }
+
+    @SuppressLint("ResourceType")
+    private fun menuItemSelectedHandler(menuItem : com.aionsigma.android.Model.MenuItem){
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        when(menuItem.id){
+            ConstMenu.MY_PROFILE ->{
+                val myProfileFragment = MyProfileFragment()
+                fragmentTransaction?.replace(R.id.frameLayout,myProfileFragment)
+            }
+            ConstMenu.MY_CIRCLE ->{
+                val myCircle = MyCircleFragment()
+                fragmentTransaction?.replace(R.id.frameLayout,myCircle)
+            }
+        }
+        fragmentTransaction?.commit()
+        drawer_layout.closeDrawer(GravityCompat.START)
+    }
 
     private fun isServiceRunning(): Boolean {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager

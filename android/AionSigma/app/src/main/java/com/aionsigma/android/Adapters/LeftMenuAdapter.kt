@@ -11,11 +11,11 @@ import com.aionsigma.android.Model.MenuItem
 import com.aionsigma.android.R
 import com.aionsigma.android.Services.AppDataService
 
-class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>): RecyclerView.Adapter<LeftMenuAdapter.Holder>(){
+class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>, val itemClick: (MenuItem)-> Unit): RecyclerView.Adapter<LeftMenuAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.left_menu_item, parent, false)
-        return Holder(view)
+        return Holder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -26,7 +26,7 @@ class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>
         holder.binding(menuItems[position], context)
     }
 
-    inner class Holder(itemView:View?) : RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView:View?, val itemClick: (MenuItem)-> Unit) : RecyclerView.ViewHolder(itemView){
         val title = itemView?.findViewById<TextView>(R.id.tvTitle)
         val badge = itemView?.findViewById<TextView>(R.id.tvbadgeInfo)
 
@@ -36,6 +36,8 @@ class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>
             if(menu.badgeInfo.isNullOrEmpty()){
                 badge?.visibility = View.INVISIBLE
             }
+
+            itemView.setOnClickListener { itemClick(menu) }
         }
     }
 }

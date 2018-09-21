@@ -25,24 +25,28 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Button" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Button">
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:textColor">@color/color_text_light</item>
+        <item name="android:layout_height">@dimen/button_default_height</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="Button.BlueDark" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Button.BlueDark" >
         <item name="android:background">@drawable/button_blue_dark</item>
         <item name="android:textColor">@color/color_text_light</item>
     </style>
 
-    <style name="Button.Green" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Button.Green" >
         <item name="android:background">@drawable/button_green</item>
         <item name="android:textColor">@color/color_text_light</item>
     </style>
 
-    <style name="Button.Red" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Button.Red" >
         <item name="android:background">@drawable/button_red</item>
         <item name="android:textColor">@color/color_text_light</item>
+
     </style>
 
 </resources>

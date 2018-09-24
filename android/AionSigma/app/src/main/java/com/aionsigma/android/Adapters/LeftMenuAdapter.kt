@@ -5,13 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.TextView
-import com.aionsigma.android.Model.MenuItem
+import com.aionsigma.android.Model.MenuItem.MenuItemModel
 import com.aionsigma.android.R
-import com.aionsigma.android.Services.AppDataService
 
-class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>, val itemClick: (MenuItem)-> Unit): RecyclerView.Adapter<LeftMenuAdapter.Holder>(){
+class LeftMenuAdapter(val context: Context, private val menuItemModels:List<MenuItemModel>, val itemClick: (MenuItemModel)-> Unit): RecyclerView.Adapter<LeftMenuAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.left_menu_item, parent, false)
@@ -19,18 +17,18 @@ class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>
     }
 
     override fun getItemCount(): Int {
-        return menuItems.count()
+        return menuItemModels.count()
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.binding(menuItems[position], context)
+        holder.binding(menuItemModels[position], context)
     }
 
-    inner class Holder(itemView:View?, val itemClick: (MenuItem)-> Unit) : RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView:View?, val itemClick: (MenuItemModel)-> Unit) : RecyclerView.ViewHolder(itemView){
         val title = itemView?.findViewById<TextView>(R.id.tvTitle)
         val badge = itemView?.findViewById<TextView>(R.id.tvbadgeInfo)
 
-        fun binding(menu:MenuItem, context: Context){
+        fun binding(menu: MenuItemModel, context: Context){
             title?.text = menu.title
             badge?.text = menu.badgeInfo
             if(menu.badgeInfo.isNullOrEmpty()){
@@ -43,7 +41,7 @@ class LeftMenuAdapter(val context: Context, private val menuItems:List<MenuItem>
 }
 
 //
-//class LeftMenuAdapter(context: Context, menuItems:List<MenuItem>): BaseAdapter() {
+//class LeftMenuAdapter(context: Context, menuItems:List<MenuItemModel>): BaseAdapter() {
 //
 //    val context = context
 //    private val menuItems = menuItems

@@ -1,4 +1,4 @@
-package com.aionsigma.android.Controller
+package com.aionsigma.android.View.Main
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,19 +8,13 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import com.aionsigma.android.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import android.app.ActivityManager
-import android.content.AbstractThreadedSyncAdapter
 import android.content.Context
-import android.support.design.widget.NavigationView
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import com.aionsigma.android.Adapters.LeftMenuAdapter
 import com.aionsigma.android.Services.AppDataService
 import com.aionsigma.android.Services.SyncDataService
@@ -28,8 +22,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.DividerItemDecoration
 import com.aionsigma.android.Constants.ConstMenu
-import com.aionsigma.android.Controller.MainFragments.MyCircleFragment
-import com.aionsigma.android.Controller.MainFragments.MyProfileFragment
+import com.aionsigma.android.View.Main.Fragments.MyCircleFragment
+import com.aionsigma.android.View.Main.Fragments.MyProfileFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -124,9 +118,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ResourceType")
-    private fun menuItemSelectedHandler(menuItem : com.aionsigma.android.Model.MenuItem){
+    private fun menuItemSelectedHandler(menuItemModel : com.aionsigma.android.Model.MenuItem.MenuItemModel){
         val fragmentTransaction = fragmentManager?.beginTransaction()
-        when(menuItem.id){
+        when(menuItemModel.id){
             ConstMenu.MY_PROFILE ->{
                 val myProfileFragment = MyProfileFragment()
                 fragmentTransaction?.replace(R.id.frameLayout,myProfileFragment)

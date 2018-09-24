@@ -1,11 +1,12 @@
-package com.aionsigma.android.Controller
+package com.aionsigma.android.View.Login
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.aionsigma.android.R
+import com.aionsigma.android.View.Main.MainActivity
+import com.aionsigma.android.View.Register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -15,13 +16,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun btnLoginOnClicked(view: View){
-        val mainIntent = Intent(this,MainActivity::class.java)
+        val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
     }
 
     fun btnSignUpOnClicked(view:View){
-        val signUpIntent = Intent(this, SignUpActivity::class.java)
+        val signUpIntent = Intent(this, RegisterActivity::class.java)
         startActivity(signUpIntent)
     }
 }

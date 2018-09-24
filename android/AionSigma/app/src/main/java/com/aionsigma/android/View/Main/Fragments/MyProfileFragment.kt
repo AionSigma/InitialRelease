@@ -1,4 +1,4 @@
-package com.aionsigma.android.Controller.MainFragments
+package com.aionsigma.android.View.Main.Fragments
 
 
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.aionsigma.android.R
-import kotlinx.android.synthetic.main.fragment_my_profile.*
 
 
 // TODO: Rename parameter arguments, choose names that match

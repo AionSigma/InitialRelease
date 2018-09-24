@@ -1,4 +1,4 @@
-package com.aionsigma.android.Controller.MainFragments
+package com.aionsigma.android.View.Main.Fragments
 
 
 import android.os.Bundle

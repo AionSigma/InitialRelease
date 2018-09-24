@@ -1,4 +1,4 @@
-package com.aionsigma.android.Controller
+package com.aionsigma.android.View.Register
 
 import android.Manifest
 import android.content.Intent
@@ -15,14 +15,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.aionsigma.android.R
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_register.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
-class SignUpActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     val MY_REQUEST_CAMERA = 10
     val MY_REQUEST_WRITE_CAMERA = 11
@@ -34,7 +34,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_register)
     }
 
     fun imageButtonLocalOnClicked(view: View){
@@ -48,7 +48,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun checkPermissionCamera(): Boolean{
         val permissionCheck = ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA)
         if(permissionCheck!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this@SignUpActivity, arrayOf<String>(Manifest.permission.CAMERA),MY_REQUEST_CAMERA)
+            ActivityCompat.requestPermissions(this@RegisterActivity, arrayOf<String>(Manifest.permission.CAMERA),MY_REQUEST_CAMERA)
             return false
         }
         else{
@@ -59,7 +59,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun checkPermissionCameraWrite() :Boolean{
         val permissionCheck = ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if(permissionCheck!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this@SignUpActivity, arrayOf<String>(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE),MY_REQUEST_WRITE_CAMERA)
+            ActivityCompat.requestPermissions(this@RegisterActivity, arrayOf<String>(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE),MY_REQUEST_WRITE_CAMERA)
             return false
         }
         else{

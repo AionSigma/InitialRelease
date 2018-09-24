@@ -1,4 +1,4 @@
-package com.aionsigma.android.Controller
+package com.aionsigma.android.View.Welcome
 
 import android.Manifest
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.provider.CallLog
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import com.aionsigma.android.View.Login.LoginActivity
 import java.util.*
 
 
@@ -67,7 +68,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     fun btnCreateCircleOnClicked(view: View){
-        var loginIntent = Intent(this,LoginActivity::class.java)
+        var loginIntent = Intent(this, LoginActivity::class.java)
         startActivity(loginIntent)
     }
 

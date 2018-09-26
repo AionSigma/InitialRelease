@@ -19,7 +19,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        getUsers()
+        //getUsers()
+        authenticate()
     }
 
     fun btnLoginOnClicked(view: View){
@@ -47,6 +48,26 @@ class LoginActivity : AppCompatActivity() {
                         {
                             error->
                             Log.d(TAG,error.message)
+                        }
+                )
+    }
+
+    fun authenticate(){
+        val map= mapOf<String, String>("Content-Type" to "application/json",
+                "Fineract-Platform-TenantId" to "default",
+                "Accept" to "application/json")
+        val TAG = "authenticate"
+        Repository.createService(IUserRepository::class.java, map).authentication("mifos", "password")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+                            result->
+                            Log.d(TAG,result.username)
+                        },
+                        {
+                            error->
+                            Log.d(TAG,"error:"+error.message)
                         }
                 )
     }

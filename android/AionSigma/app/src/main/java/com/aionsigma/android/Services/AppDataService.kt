@@ -1,18 +1,18 @@
 package com.aionsigma.android.Services
 
 import com.aionsigma.android.Constants.ConstMenu
-import com.aionsigma.android.Model.MenuItem.MenuItemModel
+import com.aionsigma.android.Model.MenuItem.MenuItemDataModel
 
 
 object AppDataService {
     val menuLeftItems = listOf(
-            MenuItemModel(ConstMenu.MY_PROFILE, "My Profile"),
-            MenuItemModel(ConstMenu.MY_CIRCLE, "My Circle"),
-            MenuItemModel(ConstMenu.DEPOSITS, "Deposits"),
-            MenuItemModel(ConstMenu.FRIENDS, "Friends", null, "5"),
-            MenuItemModel(ConstMenu.INVITATIONS, "Invitations"),
-            MenuItemModel(ConstMenu.JOIN, "Join"),
-            MenuItemModel(ConstMenu.SETTING, "Setting"),
-            MenuItemModel(ConstMenu.LOGOUT, "Logout")
+            MenuItemDataModel(ConstMenu.MY_PROFILE, "My Profile"),
+            MenuItemDataModel(ConstMenu.MY_CIRCLE, "My Circle"),
+            MenuItemDataModel(ConstMenu.DEPOSITS, "Deposits"),
+            MenuItemDataModel(ConstMenu.FRIENDS, "Friends", null, "5"),
+            MenuItemDataModel(ConstMenu.INVITATIONS, "Invitations"),
+            MenuItemDataModel(ConstMenu.JOIN, "Join"),
+            MenuItemDataModel(ConstMenu.SETTING, "Setting"),
+            MenuItemDataModel(ConstMenu.LOGOUT, "Logout")
     )
 }

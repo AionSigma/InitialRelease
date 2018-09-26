@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.aionsigma.android.Model.MenuItem.MenuItemModel
+import com.aionsigma.android.Model.MenuItem.MenuItemDataModel
 import com.aionsigma.android.R
 
-class LeftMenuAdapter(val context: Context, private val menuItemModels:List<MenuItemModel>, val itemClick: (MenuItemModel)-> Unit): RecyclerView.Adapter<LeftMenuAdapter.Holder>(){
+class LeftMenuAdapter(val context: Context, private val menuItemModels:List<MenuItemDataModel>, val itemClick: (MenuItemDataModel)-> Unit): RecyclerView.Adapter<LeftMenuAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.left_menu_item, parent, false)
@@ -24,11 +24,11 @@ class LeftMenuAdapter(val context: Context, private val menuItemModels:List<Menu
         holder.binding(menuItemModels[position], context)
     }
 
-    inner class Holder(itemView:View?, val itemClick: (MenuItemModel)-> Unit) : RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView:View?, val itemClick: (MenuItemDataModel)-> Unit) : RecyclerView.ViewHolder(itemView){
         val title = itemView?.findViewById<TextView>(R.id.tvTitle)
         val badge = itemView?.findViewById<TextView>(R.id.tvbadgeInfo)
 
-        fun binding(menu: MenuItemModel, context: Context){
+        fun binding(menu: MenuItemDataModel, context: Context){
             title?.text = menu.title
             badge?.text = menu.badgeInfo
             if(menu.badgeInfo.isNullOrEmpty()){
@@ -41,7 +41,7 @@ class LeftMenuAdapter(val context: Context, private val menuItemModels:List<Menu
 }
 
 //
-//class LeftMenuAdapter(context: Context, menuItems:List<MenuItemModel>): BaseAdapter() {
+//class LeftMenuAdapter(context: Context, menuItems:List<MenuItemDataModel>): BaseAdapter() {
 //
 //    val context = context
 //    private val menuItems = menuItems

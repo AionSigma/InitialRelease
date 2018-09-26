@@ -22,6 +22,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.DividerItemDecoration
 import com.aionsigma.android.Constants.ConstMenu
+import com.aionsigma.android.View.Login.LoginActivity
 import com.aionsigma.android.View.Main.Fragments.MyCircleFragment
 import com.aionsigma.android.View.Main.Fragments.MyProfileFragment
 
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ResourceType")
-    private fun menuItemSelectedHandler(menuItemModel : com.aionsigma.android.Model.MenuItem.MenuItemModel){
+    private fun menuItemSelectedHandler(menuItemModel : com.aionsigma.android.Model.MenuItem.MenuItemDataModel){
         val fragmentTransaction = fragmentManager?.beginTransaction()
         when(menuItemModel.id){
             ConstMenu.MY_PROFILE ->{
@@ -128,6 +129,10 @@ class MainActivity : AppCompatActivity() {
             ConstMenu.MY_CIRCLE ->{
                 val myCircle = MyCircleFragment()
                 fragmentTransaction?.replace(R.id.frameLayout,myCircle)
+            }
+            ConstMenu.LOGOUT->{
+                val loginIntent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             }
         }
         fragmentTransaction?.commit()

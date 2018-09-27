@@ -74,7 +74,7 @@ class WelcomeActivity : AppCompatActivity() {
     fun btnCreateCircleOnClicked(view: View){
         //Get UserInfo
         val userInfo = SharedPreferencesUtils.readUserLogin(this)
-        if(userInfo!= null){
+        if(userInfo!= null && userInfo.authenticated!!){
             var mainIntent = Intent(this,MainActivity::class.java)
             startActivity(mainIntent)
         }

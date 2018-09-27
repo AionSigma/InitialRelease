@@ -36,10 +36,15 @@ class LoginActivity : AppCompatActivity(), ILoginViewHandle {
     }
 
     override fun authenticateSuccess(result: User){
-        SharedPreferencesUtils.writeUserLogin(this,result)
-        val mainIntent = Intent(this, MainActivity::class.java)
-        startActivity(mainIntent)
-        finish()
+        if(result.authenticated!!){
+            SharedPreferencesUtils.writeUserLogin(this,result)
+            val mainIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainIntent)
+            finish()
+        }
+        else{
+            Toast.makeText(this, "Login failed!", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun authenticateError(error : Throwable){

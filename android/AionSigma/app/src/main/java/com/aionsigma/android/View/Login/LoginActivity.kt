@@ -3,30 +3,31 @@ package com.aionsigma.android.View.Login
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import com.aionsigma.android.Model.Account.IUserRepository
-import com.aionsigma.android.Model.Repository
+import android.widget.Toast
+import com.aionsigma.android.Model.Account.User
+import com.aionsigma.android.Presenter.Account.AccountPresenter
+import com.aionsigma.android.Presenter.Account.IAccountPresenter
 import com.aionsigma.android.R
+import com.aionsigma.android.Ultilities.SharedPreferencesUtils
 import com.aionsigma.android.View.Main.MainActivity
 import com.aionsigma.android.View.Register.RegisterActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_login.*
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), ILoginViewHandle {
+
+    var accountPresenter: IAccountPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        //getUsers()
-        authenticate()
+
+        accountPresenter = AccountPresenter(loginViewHandle = this)
     }
 
     fun btnLoginOnClicked(view: View){
-        val mainIntent = Intent(this, MainActivity::class.java)
-        startActivity(mainIntent)
-        finish()
+        accountPresenter?.authenticate(login_etUsername.text!!.toString(),login_etPassword.text!!.toString())
     }
 
     fun btnSignUpOnClicked(view:View){
@@ -34,41 +35,15 @@ class LoginActivity : AppCompatActivity() {
         startActivity(signUpIntent)
     }
 
-    fun getUsers(){
-        val TAG = "getUsers"
-
-        Repository.createService(IUserRepository::class.java).getAll()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        {
-                            result->
-                            Log.d(TAG,result.count().toString())
-                        },
-                        {
-                            error->
-                            Log.d(TAG,error.message)
-                        }
-                )
+    override fun authenticateSuccess(result: User){
+        SharedPreferencesUtils.writeUserLogin(this,result)
+        val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
+        finish()
     }
 
-    fun authenticate(){
-        val map= mapOf<String, String>("Content-Type" to "application/json",
-                "Fineract-Platform-TenantId" to "default",
-                "Accept" to "application/json")
-        val TAG = "authenticate"
-        Repository.createService(IUserRepository::class.java, map).authentication("mifos", "password")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        {
-                            result->
-                            Log.d(TAG,result.username)
-                        },
-                        {
-                            error->
-                            Log.d(TAG,"error:"+error.message)
-                        }
-                )
+    override fun authenticateError(error : Throwable){
+        Toast.makeText(this,"error: ${error.message}",Toast.LENGTH_LONG).show()
     }
+
 }

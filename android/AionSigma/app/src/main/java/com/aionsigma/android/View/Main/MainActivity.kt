@@ -22,9 +22,12 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.DividerItemDecoration
 import com.aionsigma.android.Constants.ConstMenu
+import com.aionsigma.android.Presenter.Account.AccountPresenter
+import com.aionsigma.android.Ultilities.SharedPreferencesUtils
 import com.aionsigma.android.View.Login.LoginActivity
 import com.aionsigma.android.View.Main.Fragments.MyCircleFragment
 import com.aionsigma.android.View.Main.Fragments.MyProfileFragment
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -107,15 +110,21 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
 
-
-
-
         //Drawer init
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        //Get UserInfo
+        val userInfo = SharedPreferencesUtils.readUserLogin(this)
+        if(userInfo!= null){
+            main_tvName.text = userInfo.username
+        }
+        else{
+            var loginIntent = Intent(this,LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
     }
 
     @SuppressLint("ResourceType")

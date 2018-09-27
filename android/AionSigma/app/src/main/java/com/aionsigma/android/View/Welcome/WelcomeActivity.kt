@@ -11,7 +11,10 @@ import android.provider.CallLog
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import com.aionsigma.android.Ultilities.SharedPreferencesUtils
 import com.aionsigma.android.View.Login.LoginActivity
+import com.aionsigma.android.View.Main.MainActivity
+import kotlinx.android.synthetic.main.nav_header_main.*
 import java.util.*
 
 
@@ -22,6 +25,7 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
@@ -68,8 +72,16 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     fun btnCreateCircleOnClicked(view: View){
-        var loginIntent = Intent(this, LoginActivity::class.java)
-        startActivity(loginIntent)
+        //Get UserInfo
+        val userInfo = SharedPreferencesUtils.readUserLogin(this)
+        if(userInfo!= null){
+            var mainIntent = Intent(this,MainActivity::class.java)
+            startActivity(mainIntent)
+        }
+        else{
+            var loginIntent = Intent(this,LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
     }
 
     private fun getCallDetails(): String {

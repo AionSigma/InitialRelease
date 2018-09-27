@@ -27,13 +27,13 @@
 
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/main_tvName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:gravity="bottom|center"
-            android:text="Oliver Queen"
+            android:text=""
             android:textColor="#2a737b"
             android:textStyle="bold" />
 

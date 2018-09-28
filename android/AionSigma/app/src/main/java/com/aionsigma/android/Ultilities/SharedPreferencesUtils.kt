@@ -15,8 +15,16 @@ object SharedPreferencesUtils {
         }
     }
     private fun readString(context: Context, key:String, defVallue:String = ""):String{
-        val sharedPref = context?.getSharedPreferences(AIONSIGMA_APP_SHAREKEY,Context.MODE_PRIVATE) ?: null
+        val sharedPref = context.getSharedPreferences(AIONSIGMA_APP_SHAREKEY,Context.MODE_PRIVATE) ?: null
         return sharedPref!!.getString(key,defVallue)
+    }
+
+    public fun clearAll(context: Context){
+        val sharedPref = context.getSharedPreferences(AIONSIGMA_APP_SHAREKEY,Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            clear()
+            commit()
+        }
     }
 
     private const val USERLOGIN_KEY = "USERLOGIN_KEY"

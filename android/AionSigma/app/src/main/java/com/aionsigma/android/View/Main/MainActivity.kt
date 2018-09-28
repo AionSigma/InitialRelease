@@ -21,6 +21,7 @@ import com.aionsigma.android.Services.SyncDataService
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.DividerItemDecoration
+import android.util.Log
 import com.aionsigma.android.Constants.ConstMenu
 import com.aionsigma.android.Presenter.Account.AccountPresenter
 import com.aionsigma.android.Ultilities.SharedPreferencesUtils
@@ -101,12 +102,15 @@ class MainActivity : AppCompatActivity() {
         menu_left_list.addItemDecoration(itemDecorator)
 
         //Services
+        Log.d("Service", "Start")
         try {
             if (!isServiceRunning()) {
                 val intent = Intent(this, SyncDataService::class.java)
                 startService(intent)
+                Log.d("Service", "Started")
             }
         } catch (ex: Exception) {
+            Log.d("Service", ex.message)
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
 
@@ -140,8 +144,10 @@ class MainActivity : AppCompatActivity() {
                 fragmentTransaction?.replace(R.id.frameLayout,myCircle)
             }
             ConstMenu.LOGOUT->{
+                SharedPreferencesUtils.clearAll(this)
                 val loginIntent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity(loginIntent)
+                finish()
             }
         }
         fragmentTransaction?.commit()

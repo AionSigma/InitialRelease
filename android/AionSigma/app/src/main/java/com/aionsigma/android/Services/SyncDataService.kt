@@ -93,49 +93,49 @@ class SyncDataService : Service() {
         }
     }
 
-    private class PopulateDbAsync internal constructor(private val context: Context) : AsyncTask<Void, Void, String>() {
-
-        private val db: AppDatabase
-        internal var locationUtils: LocationUtils
-
-        init {
-            db = AppDatabase.getAppDatabase(context)
-            locationUtils = LocationUtils(context)
-        }
-
-        override fun doInBackground(vararg params: Void): String? {
-//            val lattitude: String
-//            val longitude: String
-
-            try {
-                val location = locationUtils.location
-                if (location != null) {
-                    val latti = location!!.getLatitude()
-                    val longi = location!!.getLongitude()
-//                    lattitude = latti.toString()
-//                    longitude = longi.toString()
-                }
-            } catch (e: Exception) {
-                return e.message
-            }
-
-            try {
-                val userInfo = UserInfo("test", "123456789", "test")
-                val myDao = db.userInfoDao()
-                myDao.insert(userInfo)
-                val userInfoList = myDao.getAll()
-                return userInfoList[0].userInfoId + "---" + userInfoList[0].data
-            } catch (ex: Exception) {
-                return ex.message
-            }
-
-        }
-
-        override fun onPostExecute(agentsCount: String) {
-            Toast.makeText(context, agentsCount, Toast.LENGTH_LONG).show()
-        }
-
-    }
+//    private class PopulateDbAsync internal constructor(private val context: Context) : AsyncTask<Void, Void, String>() {
+//
+//        private val db: AppDatabase
+//        internal var locationUtils: LocationUtils
+//
+//        init {
+//            db = AppDatabase.getAppDatabase(context)
+//            locationUtils = LocationUtils(context)
+//        }
+//
+//        override fun doInBackground(vararg params: Void): String? {
+////            val lattitude: String
+////            val longitude: String
+//
+//            try {
+//                val location = locationUtils.location
+//                if (location != null) {
+//                    val latti = location!!.getLatitude()
+//                    val longi = location!!.getLongitude()
+////                    lattitude = latti.toString()
+////                    longitude = longi.toString()
+//                }
+//            } catch (e: Exception) {
+//                return e.message
+//            }
+//
+//            try {
+//                val userInfo = UserInfo("test", "123456789", "test")
+//                val myDao = db.userInfoDao()
+//                myDao.insert(userInfo)
+//                val userInfoList = myDao.getAll()
+//                return userInfoList[0].userInfoId + "---" + userInfoList[0].data
+//            } catch (ex: Exception) {
+//                return ex.message
+//            }
+//
+//        }
+//
+//        override fun onPostExecute(agentsCount: String) {
+//            Toast.makeText(context, agentsCount, Toast.LENGTH_LONG).show()
+//        }
+//
+//    }
 
     companion object {
         private val timer = Timer()

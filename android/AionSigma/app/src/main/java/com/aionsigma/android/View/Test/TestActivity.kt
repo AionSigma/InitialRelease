@@ -1,11 +1,14 @@
 package com.aionsigma.android.View.Test
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -24,6 +27,10 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test.*
 
 import java.util.*
+import android.telephony.gsm.GsmCellLocation
+import android.telephony.TelephonyManager
+import android.telephony.cdma.CdmaCellLocation
+
 
 class TestActivity : AppCompatActivity() {
 
@@ -37,13 +44,52 @@ class TestActivity : AppCompatActivity() {
 
         db = AppDatabase.getAppDatabase(this)
         userDao = db.userInfoDao()
+
+        ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.READ_PHONE_STATE
+                        ),
+                1)
     }
 
     fun btnTestRoomOnClicked(view: View) {
-//        val populateDbAsync = PopulateDbAsync(this)
-//        populateDbAsync.execute()
-        callTest()
-        callGetUserFromRoom()
+        testCellTower()
+//        callTest()
+//        callGetUserFromRoom()
+    }
+
+    @Suppress("DEPRECATION")
+    fun testCellTower(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        val telephony = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        when(telephony.phoneType){
+            TelephonyManager.PHONE_TYPE_GSM->{
+                val location = telephony.cellLocation as GsmCellLocation
+                if (location != null) {
+                    tvResult.text = """LAC: ${location.lac}
+                        |CID: ${location.cid}
+                        |""".trimMargin()
+                }
+            }
+            TelephonyManager.PHONE_TYPE_CDMA->{
+                val location = telephony.cellLocation as CdmaCellLocation
+                if (location != null) {
+                    tvResult.text = """SID: ${location.systemId} NID: ${location.networkId} BID: ${location.baseStationId}
+                        |Lat: ${location.baseStationLatitude}
+                        |Lon: ${location.baseStationLongitude}
+                    """.trimMargin()
+                }
+            }
+
+        }
+        if (telephony.phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+
+
+        }
     }
 
     fun callTest() {
@@ -79,47 +125,5 @@ class TestActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-//    private class PopulateDbAsync internal constructor(private val context: Context) : AsyncTask<Void, Void, String>() {
-//
-//        private val db: AppDatabase
-//        internal var locationUtils: LocationUtils
-//
-//        init {
-//            db = AppDatabase.getAppDatabase(context)
-//            locationUtils = LocationUtils(context)
-//        }
-//
-//        override fun doInBackground(vararg params: Void): String? {
-////            val lattitude: String
-////            val longitude: String
-//
-//            try {
-//                val location = locationUtils.location
-//                if (location != null) {
-//                    val latti = location!!.getLatitude()
-//                    val longi = location!!.getLongitude()
-////                    lattitude = latti.toString()
-////                    longitude = longi.toString()
-//                }
-//            } catch (e: Exception) {
-//                return e.message
-//            }
-//
-//            try {
-//                val userInfo = UserInfo("test", "123456789", "test")
-//                val myDao = db.userInfoDao()
-//                myDao.insert(userInfo)
-//                val userInfoList = myDao.getAll()
-//                return userInfoList[0].userInfoId + "---" + userInfoList[0].data
-//            } catch (ex: Exception) {
-//                return ex.message
-//            }
-//
-//        }
-//
-//        override fun onPostExecute(agentsCount: String) {
-//            Toast.makeText(context, agentsCount, Toast.LENGTH_LONG).show()
-//        }
-//
-//    }
+
 }

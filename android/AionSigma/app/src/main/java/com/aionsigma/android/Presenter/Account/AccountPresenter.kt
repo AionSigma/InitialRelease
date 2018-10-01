@@ -31,8 +31,9 @@ class AccountPresenter(private val loginViewHandle: ILoginViewHandle): IAccountP
                 .subscribe(
                         {
                             result->
-                            Repository.setCurrentUser(result)
                             loginViewHandle.authenticateSuccess(result)
+                            if(result.authenticated!!)
+                                Repository.setCurrentUser(result)
                         },
                         {
                             error->

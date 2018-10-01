@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                 fragmentTransaction?.replace(R.id.frameLayout,myCircle)
             }
             ConstMenu.LOGOUT->{
-                SharedPreferencesUtils.clearAll(this)
+                AccountPresenter.logOut(this)
                 val loginIntent = Intent(this, LoginActivity::class.java)
                 startActivity(loginIntent)
                 finish()

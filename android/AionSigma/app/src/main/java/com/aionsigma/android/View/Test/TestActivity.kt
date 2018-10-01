@@ -30,6 +30,7 @@ import java.util.*
 import android.telephony.gsm.GsmCellLocation
 import android.telephony.TelephonyManager
 import android.telephony.cdma.CdmaCellLocation
+import android.text.TextUtils
 
 
 class TestActivity : AppCompatActivity() {
@@ -59,6 +60,7 @@ class TestActivity : AppCompatActivity() {
 //        callGetUserFromRoom()
     }
 
+    @SuppressLint("SetTextI18n")
     @Suppress("DEPRECATION")
     fun testCellTower(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -69,11 +71,22 @@ class TestActivity : AppCompatActivity() {
         when(telephony.phoneType){
             TelephonyManager.PHONE_TYPE_GSM->{
                 val location = telephony.cellLocation as GsmCellLocation
+                val networkOperator = telephony.networkOperator
+                var mcc : Int = 0
+                var mnc : Int = 0
+                if(!TextUtils.isEmpty(networkOperator)){
+                    mcc = networkOperator.substring(0,3).toInt()
+                    mnc= networkOperator.substring(3).toInt()
+                }
                 if (location != null) {
                     tvResult.text = """LAC: ${location.lac}
                         |CID: ${location.cid}
+                        |MCC: $mcc
+                        |MNC: $mnc
+                        |Sim: ${telephony.simOperator}
                         |""".trimMargin()
                 }
+                val api="AIzaSyC5BT9UZzggx-XAnFXBq_IiYJNlgmuLRjo"
             }
             TelephonyManager.PHONE_TYPE_CDMA->{
                 val location = telephony.cellLocation as CdmaCellLocation
@@ -122,7 +135,7 @@ class TestActivity : AppCompatActivity() {
 
     fun btnGoAppOnClicked(view: View) {
         val app = Intent(this, WelcomeActivity::class.java)
-        startActivity(intent)
+        startActivity(app)
     }
 
 

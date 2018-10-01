@@ -1,6 +1,7 @@
 package com.aionsigma.android.Model
 
 import com.aionsigma.android.Constants.ConstSetting
+import com.aionsigma.android.Model.Account.User
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -20,11 +21,23 @@ class Repository {
                 .addConverterFactory(GsonConverterFactory.create())
 
         private val httpClient = OkHttpClient.Builder()
+
+        private var currentUser: User? = null
+
+        fun setCurrentUser(user: User?) {
+            currentUser = user
+        }
+
         fun <S> createService(serviceClass: Class<S>): S {
+//            if(currentUser==null)
+//            return createService(serviceClass, null)
+//            val authenticateHeader= mapOf<String,String>(
+//                    "Authorization" to "Basic ${currentUser?.base64EncodedAuthenticationKey!!}"
+//            )
             return createService(serviceClass, null)
         }
 
-        fun <S> createService(serviceClass: Class<S>, authToken: Map<String, String>?): S {
+        fun <S> createService(serviceClass: Class<S>, headers: Map<String, String>?): S {
             //begin unsafe OkHttpClient
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                 override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
@@ -54,21 +67,27 @@ class Repository {
             httpClient.hostnameVerifier { hostname, session -> true }
             //end unsafe OkHttpClient
 
+            var customHeaders : Map<String,String>? = null
+            if (currentUser != null) {
+                customHeaders = mapOf<String,String>(
+                    "Authorization" to "Basic ${currentUser?.base64EncodedAuthenticationKey!!}"
+                )
+                if(headers != null)
+                    customHeaders.plus(headers)
+            }
+            else
+                customHeaders = headers
 
-
-            if (authToken != null) {
-                var interceptor = AuthenticationInterceptor(authToken!!)
+            if (customHeaders != null) {
+                var interceptor = AuthenticationInterceptor(customHeaders!!)
                 if (!httpClient.interceptors().contains(interceptor)) {
                     httpClient.addInterceptor(interceptor)
                     builder.client(httpClient.build())
                     retrofit = builder.build()
                 }
-            }
-            else retrofit = builder.build()
+            } else retrofit = builder.build()
             return retrofit!!.create(serviceClass)
         }
-
-
     }
 
     class AuthenticationInterceptor(private val authToken: Map<String, String>) : Interceptor {

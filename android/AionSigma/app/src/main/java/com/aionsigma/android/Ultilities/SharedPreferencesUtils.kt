@@ -29,15 +29,15 @@ object SharedPreferencesUtils {
 
     private const val USERLOGIN_KEY = "USERLOGIN_KEY"
 
-    fun writeUserLogin(activity: Activity,user: User?){
+    fun writeUserLogin(context: Context,user: User?){
         if(user!= null) {
             val gson = Gson()
-            writeString(activity, USERLOGIN_KEY, gson.toJson(user))
+            writeString(context, USERLOGIN_KEY, gson.toJson(user))
         }
     }
-    fun readUserLogin(activity: Activity):User?{
+    fun readUserLogin(context: Context):User?{
         val gson = Gson()
-        val userJson = readString(activity, USERLOGIN_KEY)
+        val userJson = readString(context, USERLOGIN_KEY)
         if(!userJson.isNullOrEmpty()) return gson.fromJson(userJson,User::class.java)
         return null
     }

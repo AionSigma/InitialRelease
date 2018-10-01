@@ -1,14 +1,24 @@
 package com.aionsigma.android.Presenter.Account
 
+import android.content.Context
 import android.util.Log
 import com.aionsigma.android.Model.Account.IUserRepository
 import com.aionsigma.android.Model.Account.User
 import com.aionsigma.android.Model.Repository
+import com.aionsigma.android.Ultilities.SharedPreferencesUtils
 import com.aionsigma.android.View.Login.ILoginViewHandle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class AccountPresenter(private val loginViewHandle: ILoginViewHandle): IAccountPresenter{
+
+    companion object {
+        fun logOut(context: Context){
+            SharedPreferencesUtils.clearAll(context)
+            Repository.setCurrentUser(null)
+        }
+    }
+
 
     override fun authenticate(username: String, password: String) {
         val map= mapOf<String, String>(
@@ -21,6 +31,7 @@ class AccountPresenter(private val loginViewHandle: ILoginViewHandle): IAccountP
                 .subscribe(
                         {
                             result->
+                            Repository.setCurrentUser(result)
                             loginViewHandle.authenticateSuccess(result)
                         },
                         {

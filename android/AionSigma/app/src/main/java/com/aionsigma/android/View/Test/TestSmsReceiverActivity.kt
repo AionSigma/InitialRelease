@@ -1,5 +1,6 @@
 package com.aionsigma.android.View.Test
 
+import android.icu.lang.UCharacter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,7 @@ class TestSmsReceiverActivity : AppCompatActivity() {
                     for (i in result)
                     {
                         sb.append(i.data)
+                        sb.append("\n")
                     }
                     tvResults.text = sb.toString()
                 }

@@ -35,7 +35,9 @@ class LeftMenuAdapter(val context: Context, private val menuItemModels:List<Menu
                 badge?.visibility = View.INVISIBLE
             }
 
-            itemView.setOnClickListener { itemClick(menu) }
+            itemView.setOnClickListener {
+                itemClick(menu)
+            }
         }
     }
 }

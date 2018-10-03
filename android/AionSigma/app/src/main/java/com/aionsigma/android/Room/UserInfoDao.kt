@@ -12,13 +12,16 @@ interface UserInfoDao {
     fun getAll(): Flowable<List<UserInfo>>
 
     @Query("SELECT * FROM userinfos WHERE userInfoId IN (:userInfoIds)")
-    fun loadAllByIds(userInfoIds: Array<String>): List<UserInfo>
+    fun loadAllByIds(userInfoIds: Array<String>): Flowable<List<UserInfo>>
+
+    @Query("SELECT * FROM userinfos WHERE type = :type")
+    fun loadAllByType(type: String): Flowable<List<UserInfo>>
 
     @Query("UPDATE userinfos SET synced = :now WHERE userInfoId IN (:userInfoIds)")
     fun updateSynced(userInfoIds: Array<String>, now: Long)
 
     @Query("SELECT * FROM userinfos WHERE synced > 0 Order by createdAt asc LIMIT :limit")
-    fun getAllForSync(limit: Int): List<UserInfo>
+    fun getAllForSync(limit: Int): Flowable<List<UserInfo>>
 
     @Insert
     fun insert(userInfo: UserInfo)

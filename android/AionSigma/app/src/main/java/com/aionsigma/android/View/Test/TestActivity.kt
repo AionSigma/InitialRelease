@@ -60,7 +60,8 @@ class TestActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.READ_PHONE_STATE
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.RECEIVE_SMS
                         ),
                 1)
     }
@@ -69,6 +70,11 @@ class TestActivity : AppCompatActivity() {
         testCellTower()
 //        callTest()
 //        callGetUserFromRoom()
+    }
+
+    fun btnTestSmsOnClicked(view: View){
+        val intent = Intent(this, TestSmsReceiverActivity::class.java)
+        startActivity(intent)
     }
 
     @SuppressLint("SetTextI18n")
